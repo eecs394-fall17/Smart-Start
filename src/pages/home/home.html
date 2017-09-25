@@ -12,10 +12,14 @@
 <ion-content padding>
   <p>
     <ion-item>
-      <ion-label>Alarm Time</ion-label>
-      <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="myTime"></ion-datetime>
+      <ion-label>Departure Time</ion-label>
+      <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="departureTime"></ion-datetime>
     </ion-item>
-    <button ion-button color="dark" (click)="SetAlarm()">Set Alarm</button>
+    <ion-item>
+      <ion-label>Arrival Time</ion-label>
+      <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="arrivalTime"></ion-datetime>
+    </ion-item>
+    <button ion-button color="dark" (click)="SetAlarm(departureTime)">Set Alarm</button>
   </p>
   <p>
     API Key: AIzaSyAGctwNojNaoG33khgpIZH9WEDIroOmIec

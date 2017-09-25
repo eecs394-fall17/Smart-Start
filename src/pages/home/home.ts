@@ -68,15 +68,13 @@ export class HomePage {
   directionsDisplay = new google.maps.DirectionsRenderer;
 
   // alarm vars
-  date: Date;
-  myTime: string;
-  alarms: Array<{id: number, note: string, time: string}>;
+  arrivalTime: string;
+  departureTime: string;
   alarmFile: MediaObject;
 
   constructor(public platform: Platform, public navCtrl: NavController, private localNotifications: LocalNotifications, private media: Media) {
-    this.date = new Date();
-    this.myTime = (new Date(this.date.getTime() - this.date.getTimezoneOffset()*60000)).toISOString();
-    this.alarms = [];
+    // timezone conversion
+    this.departureTime = (new Date(new Date().getTime() - new Date().getTimezoneOffset()*60000)).toISOString();
     this.platform.ready().then((readysource) => {
       if (this.platform.is('android')) {
         this.alarmFile = this.media.create('file:///android_asset/www/sounds/alarm.mp3');
@@ -89,27 +87,20 @@ export class HomePage {
     });
   }
 
-  SetAlarm() {
-    // temp fix with android only path
-    // const alarmFile: MediaObject = this.media.create('file:///android_asset/www/sounds/alarm.mp3');
-
-    var alarmTime = new Date(this.myTime);
+  SetAlarm(time: Date) {
+    // timezone conversion
+    var alarmTime = new Date(time);
     alarmTime.setHours(alarmTime.getHours() + alarmTime.getTimezoneOffset() / 60);
     alarmTime.setSeconds(0);
-    console.log(this.alarms.length, alarmTime);
 
     this.localNotifications.schedule({
-      id: this.alarms.length,
+      id: 0,
       text: 'Time to wake up',
       at: alarmTime,
       sound: null
     });
 
-    this.alarms.push({
-      id: this.alarms.length,
-      note: 'Alarm ' + this.alarms.length,
-      time: this.myTime
-    });
+    console.log("Alarm set at ", alarmTime.toString());
   }
 
   ionViewDidLoad(){
