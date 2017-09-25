@@ -2,5 +2,7 @@
   "name": "smart-start",
   "app_id": "e6fab5eb",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }
