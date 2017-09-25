@@ -9,6 +9,10 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import { Media } from '@ionic-native/media';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -26,6 +30,9 @@ import { HomePage } from '../pages/home/home';
   providers: [
     StatusBar,
     SplashScreen,
+    LocalNotifications,
+    BackgroundMode,
+    Media,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
