@@ -14,5 +14,8 @@
 
 
 <ion-content padding>
-	Great Alarm!!
+	<ion-item>
+		<ion-label floating>Your alarm is set!</ion-label>
+		<ion-input color="primary" floating [(ngModel)]="alarmTime" ngDefaultControl></ion-input>
+	</ion-item>
 </ion-content>

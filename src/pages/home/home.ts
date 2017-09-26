@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 
 import { LocalNotifications } from '@ionic-native/local-notifications';
@@ -115,6 +115,10 @@ export class HomePage {
     });
 
     console.log("Alarm set at ", alarmTime.toString());
+
+    this.navCtrl.push(AlarmDisplayPage, {
+      alarm: alarmTime,
+    });
   }
 
   CalculateRoute() {
