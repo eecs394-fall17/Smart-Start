@@ -32,6 +32,8 @@
     <button ion-button color="dark" (click)="SetAlarm(departureTime)">Set Alarm</button>
   </p>
 
+  <button [navPush]="alarmDisplayPage">Go To Alarm</button>
+
   <ion-card>
         <ion-card-content>
             <div #directionsPanel></div>

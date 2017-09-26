@@ -6,6 +6,8 @@ import { Platform } from 'ionic-angular';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Media, MediaObject } from '@ionic-native/media';
 
+import { AlarmDisplayPage } from '../alarm-display/alarm-display';
+
 declare var google;
 
 @Component({
@@ -23,6 +25,7 @@ export class HomePage {
   arrivalAddress: string;
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
+  alarmDisplayPage = AlarmDisplayPage;
 
   // alarm vars
   arrivalTime: string;
