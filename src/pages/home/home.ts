@@ -80,8 +80,8 @@ export class HomePage {
           directionsDisplay.setPanel(this.directionsPanel.nativeElement);
 
           directionsService.route({
-              origin: 'adelaide',
-              destination: 'adelaide oval',
+              origin: this.departureAddress,
+              destination: this.arrivalAddress,
               travelMode: google.maps.TravelMode['DRIVING']
           }, (res, status) => {
 
@@ -94,6 +94,8 @@ export class HomePage {
           });
 
       }
+
+    //Map
 
   ConvertTimeZone(time: Date) {
     var resultTime = new Date(time);
