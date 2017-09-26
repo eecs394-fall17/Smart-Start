@@ -115,6 +115,10 @@ export class HomePage {
     });
 
     console.log("Alarm set at ", alarmTime.toString());
+
+    this.navCtrl.push(AlarmDisplayPage, {
+      alarm: alarmTime
+    });
   }
 
   CalculateRoute() {

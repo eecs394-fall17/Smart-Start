@@ -13,11 +13,11 @@
   <ion-list>
     <ion-item>
       <ion-label color="primary" floating>Origin</ion-label>
-      <ion-input></ion-input>
+      <ion-input [(ngModel)]="departureAddress"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary" floating>Destination</ion-label>
-      <ion-input></ion-input>
+      <ion-input [(ngModel)]="arrivalAddress"></ion-input>
     </ion-item>
   </ion-list>
   <p>
@@ -29,10 +29,8 @@
       <ion-label>Arrival Time</ion-label>
       <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="arrivalTime"></ion-datetime>
     </ion-item>
-    <button ion-button color="dark" (click)="SetAlarm(departureTime)">Set Alarm</button>
+    <button ion-button color="dark" (click)="CalculateRoute()" [navPush]="alarmDisplayPage">Set Alarm</button>
   </p>
-
-  <button [navPush]="alarmDisplayPage">Go To Alarm</button>
 
   <ion-card>
         <ion-card-content>
