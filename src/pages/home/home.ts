@@ -8,7 +8,6 @@ import { Media, MediaObject } from '@ionic-native/media';
 
 declare var google;
 
-
 @Component({
   selector: 'home-page',
   templateUrl: 'home.html'
@@ -72,6 +71,7 @@ export class HomePage {
       }
     }, (response, status) => {
       if (status === 'OK') {
+        console.log(response);
         var duration = response.routes[0].legs[0].duration.value * 1000;
         this.departureTime = new Date(new Date(this.arrivalTime).getTime() - duration).toISOString();
         this.SetAlarm(new Date(this.departureTime));
