@@ -23,9 +23,14 @@ export class AlarmDisplayPage {
 
 	homePage = HomePage;
 	alarmTime: Date;
+	arrivalTime: string;
+	destination: string;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-  	this.alarmTime = this.navParams.get('alarm');
+  	this.alarmTime = this.navParams.get('alarmTime');
+  	this.arrivalTime = this.navParams.get('arrivalTime');
+  	this.destination = this.navParams.get('destination');
   }
 
   ionViewDidLoad() {

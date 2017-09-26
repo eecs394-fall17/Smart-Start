@@ -7,15 +7,18 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>alarmDisplay</ion-title>
+    <ion-title>Your alarm is set!</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-	<ion-item>
-		<ion-label floating>Your alarm is set!</ion-label>
-		<ion-input color="primary" floating [(ngModel)]="alarmTime" ngDefaultControl></ion-input>
-	</ion-item>
+	<div id="alarmText">
+			You'll be woken up at 
+			<p class="importantInfo">{{alarmTime}}</p>
+			to get to
+			<p class="importantInfo">{{destination}}</p> by
+			<p class="importantInfo">{{arrivalTime}}.</p>
+	</div>
 </ion-content>

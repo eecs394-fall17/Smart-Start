@@ -26,6 +26,7 @@ export class HomePage {
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
   alarmDisplayPage = AlarmDisplayPage;
+  autoInput: boolean;
 
   // alarm vars
   arrivalTime: string;
@@ -44,6 +45,11 @@ export class HomePage {
       this.arrivalTime = (new Date(new Date().getTime() - new Date().getTimezoneOffset()*60000)).toISOString();
       this.departureTime = (new Date(new Date().getTime() - new Date().getTimezoneOffset()*60000)).toISOString();
 
+      this.autoInput = true;
+      if (this.autoInput){
+        this.arrivalAddress = '222 W Merchandise Mart Plaza';
+        this.departureAddress = '2025 Maple Ave';
+      }
       this.localNotifications.on('trigger', () => this.alarmFile.play());
       this.localNotifications.on('clear', () => this.alarmFile.stop());
     });
@@ -117,7 +123,9 @@ export class HomePage {
     console.log("Alarm set at ", alarmTime.toString());
 
     this.navCtrl.push(AlarmDisplayPage, {
-      alarm: alarmTime,
+      alarmTime: alarmTime,
+      destination: this.arrivalAddress,
+      arrivalTime: this.arrivalTime,
     });
   }
 
