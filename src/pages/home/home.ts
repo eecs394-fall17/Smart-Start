@@ -130,6 +130,7 @@ export class HomePage {
         console.log(response);
         var duration = response.routes[0].legs[0].duration.value * 1000;
         this.departureTime = new Date(new Date(this.arrivalTime).getTime() - duration).toISOString();
+        console.log(this.departureTime);
         this.SetAlarm(new Date(this.departureTime));
       } else {
         window.alert('Directions request failed due to ' + status);

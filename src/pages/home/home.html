@@ -13,34 +13,34 @@
   <ion-list>
     <ion-item>
       <ion-label color="primary" floating>Origin</ion-label>
-      <ion-input></ion-input>
+      <ion-input [(ngModel)]="departureAddress"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary" floating>Destination</ion-label>
-      <ion-input></ion-input>
+      <ion-input [(ngModel)]="arrivalAddress"></ion-input>
     </ion-item>
+    <ion-item>
+      <ion-label>Arrival Time</ion-label>
+      <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="arrivalTime"></ion-datetime>
+    </ion-item>
+    <button ion-button (click)="CalculateRoute()" item-right>Set Alarm</button>
   </ion-list>
   <p>
     <ion-item>
       <ion-label>Departure Time</ion-label>
       <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="departureTime"></ion-datetime>
     </ion-item>
-    <ion-item>
-      <ion-label>Arrival Time</ion-label>
-      <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="arrivalTime"></ion-datetime>
-    </ion-item>
-    <button ion-button color="dark" (click)="SetAlarm(departureTime)">Set Alarm</button>
   </p>
 
-  <button [navPush]="alarmDisplayPage">Go To Alarm</button>
+  <button ion-button [navPush]="alarmDisplayPage">Go To Alarm</button>
 
   <ion-card>
-        <ion-card-content>
-            <div #directionsPanel></div>
-        </ion-card-content>
-    </ion-card>
+    <ion-card-content>
+      <div #directionsPanel></div>
+    </ion-card-content>
+  </ion-card>
 
-    <div #map id="map"></div>
+  <div #map id="map"></div>
   <!-- <p>
     API Key: AIzaSyAGctwNojNaoG33khgpIZH9WEDIroOmIec
   </p> -->
