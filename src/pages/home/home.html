@@ -10,6 +10,16 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" floating>Origin</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary" floating>Destination</ion-label>
+      <ion-input></ion-input>
+    </ion-item>
+  </ion-list>
   <p>
     <ion-item>
       <ion-label>Departure Time</ion-label>
@@ -24,40 +34,4 @@
   <p>
     API Key: AIzaSyAGctwNojNaoG33khgpIZH9WEDIroOmIec
   </p>
-
-  <!-- <div #map id="map"></div> -->
-
-  <div id="floating-panel">
-    <b>Start: </b>
-    <select [(ngModel)]="start" id="start" (change)="calculateAndDisplayRoute()">
-      <option value="chicago, il">Chicago</option>
-      <option value="st louis, mo">St Louis</option>
-      <option value="joplin, mo">Joplin, MO</option>
-      <option value="oklahoma city, ok">Oklahoma City</option>
-      <option value="amarillo, tx">Amarillo</option>
-      <option value="gallup, nm">Gallup, NM</option>
-      <option value="flagstaff, az">Flagstaff, AZ</option>
-      <option value="winona, az">Winona</option>
-      <option value="kingman, az">Kingman</option>
-      <option value="barstow, ca">Barstow</option>
-      <option value="san bernardino, ca">San Bernardino</option>
-      <option value="los angeles, ca">Los Angeles</option>
-    </select><br>
-    <b>End: </b>
-    <select [(ngModel)]="end" id="end" (change)="calculateAndDisplayRoute()">
-      <option value="chicago, il">Chicago</option>
-      <option value="st louis, mo">St Louis</option>
-      <option value="joplin, mo">Joplin, MO</option>
-      <option value="oklahoma city, ok">Oklahoma City</option>
-      <option value="amarillo, tx">Amarillo</option>
-      <option value="gallup, nm">Gallup, NM</option>
-      <option value="flagstaff, az">Flagstaff, AZ</option>
-      <option value="winona, az">Winona</option>
-      <option value="kingman, az">Kingman</option>
-      <option value="barstow, ca">Barstow</option>
-      <option value="san bernardino, ca">San Bernardino</option>
-      <option value="los angeles, ca">Los Angeles</option>
-    </select>
-    </div>
-    <div #map id="map"></div>
 </ion-content>
