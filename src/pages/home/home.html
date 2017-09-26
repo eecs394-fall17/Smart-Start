@@ -3,9 +3,6 @@
     <ion-title>
       Smart Start
     </ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="addMarker()"><ion-icon name="add"></ion-icon>Add Marker</button>
-    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -13,25 +10,25 @@
   <ion-list>
     <ion-item>
       <ion-label color="primary" floating>Origin</ion-label>
-      <ion-input></ion-input>
+      <ion-input [(ngModel)]="departureAddress"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label color="primary" floating>Destination</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-  </ion-list>
-  <p>
-    <ion-item>
-      <ion-label>Departure Time</ion-label>
-      <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="departureTime"></ion-datetime>
+      <ion-input [(ngModel)]="arrivalAddress"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Arrival Time</ion-label>
+      <ion-label floating>Arrival Time</ion-label>
       <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="arrivalTime"></ion-datetime>
     </ion-item>
-    <button ion-button color="dark" (click)="SetAlarm(departureTime)">Set Alarm</button>
-  </p>
-  <p>
+    <ion-item padding>
+      <button ion-button large (click)="CalculateRoute()" item-right>Set Alarm</button>
+    </ion-item>
+  </ion-list>
+  <ion-item>
+    <ion-label floating>Departure Time</ion-label>
+    <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="departureTime"></ion-datetime>
+  </ion-item>
+  <!-- <p>
     API Key: AIzaSyAGctwNojNaoG33khgpIZH9WEDIroOmIec
-  </p>
+  </p> -->
 </ion-content>
