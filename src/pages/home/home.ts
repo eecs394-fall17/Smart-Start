@@ -6,7 +6,7 @@ import { Platform } from 'ionic-angular';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Media, MediaObject } from '@ionic-native/media';
 
-
+declare var google;
 
 @Component({
   selector: 'home-page',
