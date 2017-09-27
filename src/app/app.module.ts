@@ -8,6 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { AlarmDisplayPage } from '../pages/alarm-display/alarm-display';
 
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { BackgroundMode } from '@ionic-native/background-mode';
@@ -16,7 +17,8 @@ import { Media } from '@ionic-native/media';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    AlarmDisplayPage,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ import { Media } from '@ionic-native/media';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    AlarmDisplayPage,
   ],
   providers: [
     StatusBar,
