@@ -23,12 +23,14 @@ export class HomePage {
 
   departureAddress: string;
   arrivalAddress: string;
+  isenabled:boolean=false;
   directionsService = new google.maps.DirectionsService;
   directionsDisplay = new google.maps.DirectionsRenderer;
   alarmDisplayPage = AlarmDisplayPage;
   autoInput: boolean;
 
   // alarm vars
+  readyTime: number;
   arrivalTime: string;
   departureTime: string;
   alarmFile: MediaObject;
@@ -44,6 +46,8 @@ export class HomePage {
 
       this.arrivalTime = (new Date(new Date().getTime() - new Date().getTimezoneOffset()*60000)).toISOString();
       this.departureTime = (new Date(new Date().getTime() - new Date().getTimezoneOffset()*60000)).toISOString();
+
+      
 
       this.autoInput = true;
       if (this.autoInput){
@@ -110,8 +114,15 @@ export class HomePage {
     return resultTime;
   }
 
+  isAlarmButtonEnabled(){
+    if (this.arrivalAddress && this.departureAddress && this.readyTime){
+        return false;
+    }
+    else return true;
+  }
+
   SetAlarm(time: Date) {
-    var alarmTime = this.ConvertTimeZone(time);
+    var alarmTime = this.ConvertTimeZone(new Date(time.valueOf() - this.readyTime * 60000));
 
     this.localNotifications.schedule({
       id: 0,
@@ -126,6 +137,7 @@ export class HomePage {
       alarmTime: alarmTime,
       destination: this.arrivalAddress,
       arrivalTime: this.arrivalTime,
+      departureTime: this.departureTime,
     });
   }
 

@@ -23,7 +23,8 @@ export class AlarmDisplayPage {
 
 	homePage = HomePage;
 	alarmTime: Date;
-	arrivalTime: string;
+	arrivalTime: Date;
+	departureTime: Date;
 	destination: string;
 
 
@@ -31,6 +32,7 @@ export class AlarmDisplayPage {
   	this.alarmTime = this.navParams.get('alarmTime');
   	this.arrivalTime = this.navParams.get('arrivalTime');
   	this.destination = this.navParams.get('destination');
+  	this.departureTime = this.navParams.get('departureTime');
   }
 
   ionViewDidLoad() {

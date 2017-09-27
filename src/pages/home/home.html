@@ -17,19 +17,23 @@
       <ion-input [(ngModel)]="arrivalAddress"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>Arrival Time</ion-label>
-      <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="arrivalTime"></ion-datetime>
+      <ion-label color="primary" floating>Get Ready Time (min)</ion-label>
+      <ion-input type="number" [(ngModel)]="readyTime"></ion-input>
     </ion-item>
-    <button ion-button (click)="CalculateRoute()" item-right>Set Alarm</button>
+    <ion-item>
+      <ion-label>Arrival Time</ion-label>
+      <ion-datetime displayFormat="MMM DD HH:mm" [(ngModel)]="arrivalTime"></ion-datetime>
+    </ion-item>
+    <button ion-button (click)="CalculateRoute()" [disabled]="isAlarmButtonEnabled()" item-right>Set Alarm</button>
   </ion-list>
   <p>
     <ion-item>
       <ion-label>Departure Time</ion-label>
-      <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="departureTime"></ion-datetime>
+      <ion-datetime displayFormat="MMM DD HH:mm" [disabled]="!isAlarmSet" [(ngModel)]="departureTime"></ion-datetime>
     </ion-item>
   </p>
 
-  <button ion-button [navPush]="alarmDisplayPage">Go To Alarm</button>
+  <button ion-button [disabled]="!isAlarmSet" [navPush]="alarmDisplayPage">Go To Alarm</button>
 
   <ion-card>
     <ion-card-content>
