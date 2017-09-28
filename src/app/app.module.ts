@@ -9,6 +9,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { AlarmDisplayPage } from '../pages/alarm-display/alarm-display';
+import { DirectionsPage } from '../pages/directions/directions';
 
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { BackgroundMode } from '@ionic-native/background-mode';
@@ -19,6 +20,7 @@ import { Media } from '@ionic-native/media';
     MyApp,
     HomePage,
     AlarmDisplayPage,
+    DirectionsPage
   ],
   imports: [
     BrowserModule,
@@ -29,6 +31,7 @@ import { Media } from '@ionic-native/media';
     MyApp,
     HomePage,
     AlarmDisplayPage,
+    DirectionsPage
   ],
   providers: [
     StatusBar,

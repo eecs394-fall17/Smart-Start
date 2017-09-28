@@ -7,15 +7,14 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Media, MediaObject } from '@ionic-native/media';
 
 import { AlarmDisplayPage } from '../alarm-display/alarm-display';
-import { DirectionsPage } from '../directions/directions';
 
 declare var google;
 
 @Component({
-  selector: 'home-page',
-  templateUrl: 'home.html'
+  selector: 'directions-page',
+  templateUrl: 'directions.html'
 })
-export class HomePage {
+export class DirectionsPage {
 
   //Map
   @ViewChild('map') mapElement: ElementRef;
@@ -28,8 +27,6 @@ export class HomePage {
   directionsDisplay = new google.maps.DirectionsRenderer;
   alarmDisplayPage = AlarmDisplayPage;
   autoInput: boolean;
-
-  directionPage = DirectionsPage;
 
   // alarm vars
   arrivalTime: string;
@@ -134,8 +131,8 @@ export class HomePage {
 
   CalculateRoute() {
     this.directionsService.route({
-      origin: this.departureAddress,
-      destination: this.arrivalAddress,
+      origin: 'Hackensack NJ',
+      destination: 'Times Square NY',
       travelMode: 'TRANSIT',
       transitOptions: {
         arrivalTime: this.ConvertTimeZone(new Date(this.arrivalTime))
