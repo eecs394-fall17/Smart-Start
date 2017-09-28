@@ -83,7 +83,7 @@ export class HomePage {
     if (passData) {
       let data = {
         alarmId: 0,
-        departureTime: new Date(this.departureTime.getTime()),
+        departureTime: new Date(this.departureTime.getTime()+ new Date().getTimezoneOffset() * 60000),
         arrivalTime: new Date(new Date(this.arrivalTimeString).getTime() + new Date().getTimezoneOffset() * 60000),
         tripDuration: this.tripDuration,
         destination: this.arrivalAddress,
