@@ -53,8 +53,8 @@ export class DirectionsPage {
         directionsDisplay.setPanel(this.directionsPanel.nativeElement);
 
         directionsService.route({
-            origin: 'adelaide',
-            destination: 'adelaide oval',
+            origin: 'Northwestern University',
+            destination: 'Merchandise Mart Chicago',
             travelMode: google.maps.TravelMode['DRIVING']
         }, (res, status) => {
 
