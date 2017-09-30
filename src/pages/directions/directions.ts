@@ -1,153 +1,70 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
-import { NavController, NavParams } from 'ionic-angular';
-import { Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { LocalNotifications } from '@ionic-native/local-notifications';
-import { Media, MediaObject } from '@ionic-native/media';
-
-import { AlarmDisplayPage } from '../alarm-display/alarm-display';
+/**
+ * Generated class for the DirectionsPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
 
 declare var google;
 
+@IonicPage()
 @Component({
-  selector: 'directions-page',
-  templateUrl: 'directions.html'
+  selector: 'page-directions',
+  templateUrl: 'directions.html',
 })
 export class DirectionsPage {
 
-  //Map
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('directionsPanel') directionsPanel: ElementRef;
-  map: any;
+    map: any;
 
-  departureAddress: string;
-  arrivalAddress: string;
-  directionsService = new google.maps.DirectionsService;
-  directionsDisplay = new google.maps.DirectionsRenderer;
-  alarmDisplayPage = AlarmDisplayPage;
-  autoInput: boolean;
-
-  // alarm vars
-  arrivalTime: string;
-  departureTime: string;
-  alarmFile: MediaObject;
-
-  constructor(public platform: Platform, public navCtrl: NavController, private localNotifications: LocalNotifications, private media: Media) {
-    // timezone conversion
-    this.platform.ready().then((readysource) => {
-      if (this.platform.is('android')) {
-        this.alarmFile = this.media.create('file:///android_asset/www/sounds/alarm.mp3');
-      } else if (this.platform.is('ios')) {
-        this.alarmFile = this.media.create('/var/mobile/Applications/<UUID>/alarm.mp3');
-      }
-
-      this.arrivalTime = (new Date(new Date().getTime() - new Date().getTimezoneOffset()*60000)).toISOString();
-      this.departureTime = (new Date(new Date().getTime() - new Date().getTimezoneOffset()*60000)).toISOString();
-
-      this.autoInput = true;
-      if (this.autoInput){
-        this.arrivalAddress = '222 W Merchandise Mart Plaza';
-        this.departureAddress = '2025 Maple Ave';
-      }
-      this.localNotifications.on('trigger', () => this.alarmFile.play());
-      this.localNotifications.on('clear', () => this.alarmFile.stop());
-    });
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  //Map
-  ionViewDidLoad(){
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad DirectionsPage');
+    this.loadMap();
+    this.startNavigating();
+  }
 
-        this.loadMap();
-        this.startNavigating();
+  loadMap(){
+
+        let latLng = new google.maps.LatLng(-34.9290, 138.6010);
+
+        let mapOptions = {
+          center: latLng,
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
     }
 
-    loadMap(){
+    startNavigating(){
 
-          let latLng = new google.maps.LatLng(-34.9290, 138.6010);
+        let directionsService = new google.maps.DirectionsService;
+        let directionsDisplay = new google.maps.DirectionsRenderer;
 
-          let mapOptions = {
-            center: latLng,
-            zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-          }
+        directionsDisplay.setMap(this.map);
+        directionsDisplay.setPanel(this.directionsPanel.nativeElement);
 
-          this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+        directionsService.route({
+            origin: 'adelaide',
+            destination: 'adelaide oval',
+            travelMode: google.maps.TravelMode['DRIVING']
+        }, (res, status) => {
 
-      }
+            if(status == google.maps.DirectionsStatus.OK){
+                directionsDisplay.setDirections(res);
+            } else {
+                console.warn(status);
+            }
 
-      startNavigating(){
+        });
 
-          let directionsService = new google.maps.DirectionsService;
-          let directionsDisplay = new google.maps.DirectionsRenderer;
-
-          directionsDisplay.setMap(this.map);
-          directionsDisplay.setPanel(this.directionsPanel.nativeElement);
-
-          directionsService.route({
-              origin: this.departureAddress,
-              destination: this.arrivalAddress,
-              travelMode: google.maps.TravelMode['DRIVING']
-          }, (res, status) => {
-
-              if(status == google.maps.DirectionsStatus.OK){
-                  directionsDisplay.setDirections(res);
-              } else {
-                  console.warn(status);
-              }
-
-          });
-
-      }
-
-    //Map
-
-  ConvertTimeZone(time: Date) {
-    var resultTime = new Date(time);
-    resultTime.setHours(resultTime.getHours() + resultTime.getTimezoneOffset() / 60);
-    resultTime.setSeconds(0);
-    return resultTime;
-  }
-
-  SetAlarm(time: Date) {
-    var alarmTime = this.ConvertTimeZone(time);
-
-    this.localNotifications.schedule({
-      id: 0,
-      text: 'Time to wake up',
-      at: alarmTime,
-      sound: null
-    });
-
-    console.log("Alarm set at ", alarmTime.toString());
-
-    this.navCtrl.push(AlarmDisplayPage, {
-      alarmTime: alarmTime,
-      destination: this.arrivalAddress,
-      arrivalTime: this.arrivalTime,
-    });
-  }
-
-  CalculateRoute() {
-    this.directionsService.route({
-      origin: 'Hackensack NJ',
-      destination: 'Times Square NY',
-      travelMode: 'TRANSIT',
-      transitOptions: {
-        arrivalTime: this.ConvertTimeZone(new Date(this.arrivalTime))
-      }
-    }, (response, status) => {
-      if (status === 'OK') {
-        console.log(response);
-        var duration = response.routes[0].legs[0].duration.value * 1000;
-        this.departureTime = new Date(new Date(this.arrivalTime).getTime() - duration).toISOString();
-        console.log(this.departureTime);
-        this.SetAlarm(new Date(this.departureTime));
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-    });
-  }
-
+    }
 }

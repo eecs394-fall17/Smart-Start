@@ -29,7 +29,7 @@ export class HomePage {
   alarmDisplayPage = AlarmDisplayPage;
   autoInput: boolean;
 
-  directionPage = DirectionsPage;
+  directionsPage = DirectionsPage;
 
   // alarm vars
   arrivalTime: string;
