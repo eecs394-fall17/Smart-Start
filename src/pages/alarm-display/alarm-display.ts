@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 
 import { Platform } from 'ionic-angular';
+import { ModalController } from 'ionic-angular';
 
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Media, MediaObject } from '@ionic-native/media';
@@ -21,22 +22,50 @@ import { Media, MediaObject } from '@ionic-native/media';
 })
 export class AlarmDisplayPage {
 
-	homePage = HomePage;
-	alarmTime: Date;
-	arrivalTime: string;
-	destination: string;
+  alarms: Array<{ departureTime: Date, arrivalTime: Date, destination: string, tripDurationString: string, readyTimeString: string }>;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  	this.alarmTime = this.navParams.get('alarmTime');
-  	this.arrivalTime = this.navParams.get('arrivalTime');
-  	this.destination = this.navParams.get('destination');
+  constructor(
+    public navCtrl: NavController,
+    public platform: Platform,
+    public navParams: NavParams,
+    public modalController: ModalController
+  ) {
+    this.alarms = new Array();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AlarmDisplayPage');
+  // ionViewDidLoad() {
+  //   console.log('ionViewDidLoad AlarmDisplayPage');
+  // }
+
+  PresentAddAlarmModal() {
+    let modal = this.modalController.create(HomePage);
+
+    modal.onDidDismiss(data => {
+      if (data != null) {
+        this.alarms.push({
+          departureTime: data.departureTime,
+          arrivalTime: data.arrivalTime,
+          destination: data.destination,
+          tripDurationString: this.DurationToString(data.tripDuration),
+          readyTimeString: this.DurationToString(data.readyTime * 60000)
+        });
+      }
+    });
+    modal.present()
   }
 
-
+  DurationToString(time: number) {
+    var result = '';
+    console.log(time);
+    time = Math.floor(time / 60000);
+    console.log(time);
+    if (time < 60) {
+      result = time.toString() + " minutes";
+    } else {
+      result = (Math.floor(time / 60)).toString() + " hours and " + (time % 60).toString() + " minutes";
+    }
+    return result
+  }
 
 }

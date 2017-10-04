@@ -5,20 +5,44 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Your alarm is set!</ion-title>
+    <ion-title>Smart Start</ion-title>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-	<div id="alarmText">
-			You'll be woken up at 
-			<p class="importantInfo">{{alarmTime}}</p>
-			to get to
-			<p class="importantInfo">{{destination}}</p> by
-			<p class="importantInfo">{{arrivalTime}}.</p>
-	</div>
+  <ion-list>
+    <ion-card *ngFor="let alarm of alarms">
+      <ion-item>
+        <ion-label color="primary" stacked>Departure Time</ion-label>
+        <ion-label>{{alarm.departureTime | date:'short'}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Estimated Trip Duration</ion-label>
+        <ion-label>{{alarm.tripDurationString}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Time to Get Ready</ion-label>
+        <ion-label>{{alarm.readyTimeString}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Arrival Time</ion-label>
+        <ion-label>{{alarm.arrivalTime | date:'short'}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" stacked>Destination</ion-label>
+        <ion-label><ion-icon name="ios-home"></ion-icon> {{alarm.destination}}</ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+  <ion-item *ngIf="alarms.length == 0">
+    <ion-label>No Alarms</ion-label>
+  </ion-item>
+
+  <ion-fab bottom center>
+    <button ion-fab (click)="PresentAddAlarmModal()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
