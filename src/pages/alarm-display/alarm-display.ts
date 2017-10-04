@@ -4,6 +4,7 @@ import { HomePage } from '../home/home';
 
 import { Platform } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
+import { AlarmCardComponent } from '../../components/alarm-card/alarm-card';
 
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Media, MediaObject } from '@ionic-native/media';
@@ -22,8 +23,7 @@ import { Media, MediaObject } from '@ionic-native/media';
 })
 export class AlarmDisplayPage {
 
-  alarms: Array<{ departureTime: Date, arrivalTime: Date, destination: string, tripDurationString: string, readyTimeString: string }>;
-
+  alarms: Array<AlarmCardComponent>;
 
   constructor(
     public navCtrl: NavController,
@@ -43,13 +43,13 @@ export class AlarmDisplayPage {
 
     modal.onDidDismiss(data => {
       if (data != null) {
-        this.alarms.push({
-          departureTime: data.departureTime,
-          arrivalTime: data.arrivalTime,
-          destination: data.destination,
-          tripDurationString: this.DurationToString(data.tripDuration),
-          readyTimeString: this.DurationToString(data.readyTime * 60000)
-        });
+      	let alarm = new AlarmCardComponent();
+      	alarm.departureTime = data.departureTime;
+      	alarm.arrivalTime = data.arrivalTime;
+        alarm.destination = data.destination;
+        alarm.tripDurationString = this.DurationToString(data.tripDuration)
+        alarm.readyTimeString = this.DurationToString(data.readyTime * 60000);
+        this.alarms.push(alarm);
       }
     });
     modal.present()
