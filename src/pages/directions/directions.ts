@@ -17,11 +17,16 @@ declare var google;
 })
 export class DirectionsPage {
 
+  origin: string;
+  destination: string;
+
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('directionsPanel') directionsPanel: ElementRef;
     map: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.origin= this.navParams.get('origin');
+  	this.destination = this.navParams.get('destination');
   }
 
   ionViewDidLoad() {
@@ -53,8 +58,10 @@ export class DirectionsPage {
         directionsDisplay.setPanel(this.directionsPanel.nativeElement);
 
         directionsService.route({
+            // origin: this.origin,
+            // destination: this.destination,
             origin: 'Northwestern University',
-            destination: 'Merchandise Mart Chicago',
+            destination: 'Merchandise Mart',
             travelMode: google.maps.TravelMode['DRIVING']
         }, (res, status) => {
 

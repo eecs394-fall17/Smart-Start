@@ -130,6 +130,10 @@ export class HomePage {
       destination: this.arrivalAddress,
       arrivalTime: this.arrivalTime,
     });
+    this.navCtrl.push(DirectionsPage, {
+      origin: this.departureAddress,
+      destinaton: this.arrivalAddress,
+    });
   }
 
   CalculateRoute() {
