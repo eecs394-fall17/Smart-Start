@@ -49,6 +49,7 @@ export class AlarmDisplayPage {
         alarm.destination = data.destination;
         alarm.tripDurationString = this.DurationToString(data.tripDuration)
         alarm.readyTimeString = this.DurationToString(data.readyTime * 60000);
+        alarm.alarmTime = data.alarmTime;
         this.alarms.push(alarm);
       }
     });

@@ -1,3 +1,10 @@
-alarm-card {
+alarm-card.hidden {
+	display: none !important;
+}
 
+.alarm-details {
+  line-height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: 0.09s all linear;
 }

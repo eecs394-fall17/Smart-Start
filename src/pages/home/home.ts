@@ -24,6 +24,7 @@ export class HomePage {
   arrivalTimeString: string;
   departureTime: Date;
   tripDuration: number;
+  alarmTime: Date;
 
   constructor(
     public viewController: ViewController,
@@ -54,6 +55,7 @@ export class HomePage {
       sound: null
     });
 
+    this.alarmTime = time;
     console.log("Alarm set at ", time.toString());
   }
 
@@ -68,10 +70,10 @@ export class HomePage {
     }, (response, status) => {
       if (status === 'OK') {
         this.tripDuration = response.routes[0].legs[0].duration.value * 1000;
-        this.departureTime = new Date(this.arrivalTime.getTime() - this.tripDuration - this.readyTime * 60000);
+        this.departureTime = new Date(this.arrivalTime.getTime() - this.tripDuration * 60000);
         this.departureTime.setSeconds(0);
 
-        this.SetAlarm(this.departureTime);
+        this.SetAlarm(new Date (this.departureTime.getTime() - (this.readyTime * 60000)));
         this.DismissModal(true);
       } else {
         window.alert('Directions request failed due to ' + status);
@@ -83,6 +85,7 @@ export class HomePage {
     if (passData) {
       let data = {
         alarmId: 0,
+        alarmTime: this.alarmTime,
         departureTime: new Date(this.departureTime.getTime()+ new Date().getTimezoneOffset() * 60000),
         arrivalTime: new Date(new Date(this.arrivalTimeString).getTime() + new Date().getTimezoneOffset() * 60000),
         tripDuration: this.tripDuration,
