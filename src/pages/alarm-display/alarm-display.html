@@ -15,11 +15,8 @@
     <alarm-card [departureTime]=alarm.departureTime
     						[arrivalTime]=alarm.arrivalTime
     						[destination]=alarm.destination
-								[tripDurationString]=
-								[readyTimeString]
-
-
-    						></alarm-card>
+								[tripDurationString]=alarm.tripDurationString
+								[readyTimeString]=alarm.readyTimeString></alarm-card>
   </ion-list>
   <ion-item *ngIf="alarms.length == 0">
     <ion-label>No Alarms</ion-label>
