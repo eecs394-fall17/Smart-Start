@@ -34,9 +34,9 @@ export class HomePage {
   ) {
     // timezone conversion
     this.platform.ready().then((readysource) => {
-      this.arrivalTime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000);
-      this.departureTime = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000);
-      this.arrivalTimeString = this.arrivalTime.toISOString();
+      this.arrivalTime = new Date();
+      this.departureTime = new Date();
+      this.arrivalTimeString = new Date(this.arrivalTime.getTime() - this.arrivalTime.getTimezoneOffset() * 60000).toISOString();
 
       this.autoInput = true;
       if (this.autoInput) {
@@ -65,15 +65,16 @@ export class HomePage {
       destination: this.arrivalAddress,
       travelMode: 'TRANSIT',
       transitOptions: {
-        arrivalTime: new Date(this.arrivalTimeString)
+        arrivalTime: this.arrivalTime
       }
     }, (response, status) => {
       if (status === 'OK') {
         this.tripDuration = response.routes[0].legs[0].duration.value * 1000;
-        this.departureTime = new Date(this.arrivalTime.getTime() - this.tripDuration * 60000);
+        console.log('trip duration: ', this.tripDuration);
+        this.departureTime = new Date(this.arrivalTime.getTime() - this.tripDuration - this.readyTime * 60000);
         this.departureTime.setSeconds(0);
 
-        this.SetAlarm(new Date (this.departureTime.getTime() - (this.readyTime * 60000)));
+        this.SetAlarm(this.departureTime);
         this.DismissModal(true);
       } else {
         window.alert('Directions request failed due to ' + status);
@@ -86,8 +87,8 @@ export class HomePage {
       let data = {
         alarmId: 0,
         alarmTime: this.alarmTime,
-        departureTime: new Date(this.departureTime.getTime()+ new Date().getTimezoneOffset() * 60000),
-        arrivalTime: new Date(new Date(this.arrivalTimeString).getTime() + new Date().getTimezoneOffset() * 60000),
+        departureTime: this.departureTime,
+        arrivalTime: this.arrivalTime,
         tripDuration: this.tripDuration,
         destination: this.arrivalAddress,
         readyTime: this.readyTime
