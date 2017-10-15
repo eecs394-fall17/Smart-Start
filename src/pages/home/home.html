@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Add an Alarm
+      {{this.purpose}} Alarm
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="DismissModal(false)">
@@ -32,7 +32,7 @@
         <ion-datetime displayFormat="hh:mm A" [(ngModel)]="arrivalTimeString" (ionChange)="arrivalTimeChange()"></ion-datetime>
       </ion-item>
     </div>
-    <button ion-button (click)="CalculateRoute()" block large>Set Alarm</button>
+    <button ion-button (click)="CalculateRoute()" block large>Save Alarm</button>
   </div>
 </ion-content>
 <!-- <p>
