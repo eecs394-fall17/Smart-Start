@@ -25,7 +25,7 @@ export class AlarmCardComponent {
   	this.alarmExpand = !this.alarmExpand;
   	console.log(this.alarmExpand);
   };
-  
+
   isAlarmExpanded = function() {
     return this.alarmExpand;
   };
