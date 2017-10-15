@@ -13,32 +13,28 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label color="primary" floating>Origin</ion-label>
-      <ion-input [(ngModel)]="departureAddress"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" floating>Destination</ion-label>
-      <ion-input [(ngModel)]="arrivalAddress"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label color="primary" floating>Get Ready Time (minutes)</ion-label>
-      <ion-input type="number" [(ngModel)]="readyTime" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Arrival Time</ion-label>
-      <ion-datetime displayFormat="MMM DD HH:mm" [(ngModel)]="arrivalTimeString" (ionChange)="arrivalTimeChange()"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <button ion-button (click)="CalculateRoute()" block large>Set Alarm</button>
-    </ion-item>
-  </ion-list>
-  <!-- <ion-item>
-    <ion-label>Departure Time</ion-label>
-    <ion-datetime displayFormat="MMM/DD HH:mm" [(ngModel)]="departureTimeString"></ion-datetime>
-  </ion-item> -->
-  <!-- <p>
-    API Key: AIzaSyAGctwNojNaoG33khgpIZH9WEDIroOmIec
-  </p> -->
+  <div class="content">
+    <div>
+      <ion-item>
+        <ion-label color="primary" floating>Origin</ion-label>
+        <ion-input [(ngModel)]="departureAddress"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" floating>Destination</ion-label>
+        <ion-input [(ngModel)]="arrivalAddress"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label color="primary" floating>Get Ready Time (minutes)</ion-label>
+        <ion-input type="number" [(ngModel)]="readyTime" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Arrival Time</ion-label>
+        <ion-datetime displayFormat="hh:mm A" [(ngModel)]="arrivalTimeString" (ionChange)="arrivalTimeChange()"></ion-datetime>
+      </ion-item>
+    </div>
+    <button ion-button (click)="CalculateRoute()" block large>Set Alarm</button>
+  </div>
 </ion-content>
+<!-- <p>
+  API Key: AIzaSyAGctwNojNaoG33khgpIZH9WEDIroOmIec
+</p> -->
