@@ -8,7 +8,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications';
 declare var google;
 
 @Component({
-  selector: 'home-page',
+  selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
