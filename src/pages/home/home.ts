@@ -18,6 +18,9 @@ export class HomePage {
   directionsDisplay = new google.maps.DirectionsRenderer;
   autoInput: boolean;
 
+  // Edit or Add
+  purpose: string;
+
   // alarm vars
   readyTime: number;
   arrivalTime: Date;
@@ -25,15 +28,19 @@ export class HomePage {
   departureTime: Date;
   tripDuration: number;
   alarmTime: Date;
+  alarmId: number;
 
   constructor(
     public viewController: ViewController,
     public platform: Platform,
     public navCtrl: NavController,
-    private localNotifications: LocalNotifications
+    private localNotifications: LocalNotifications,
+    params: NavParams
   ) {
     // timezone conversion
     this.platform.ready().then((readysource) => {
+      this.purpose = params.get('purpose');
+
       this.arrivalTime = new Date();
       this.departureTime = new Date();
       this.arrivalTimeString = new Date(this.arrivalTime.getTime() - this.arrivalTime.getTimezoneOffset() * 60000).toISOString();
@@ -43,20 +50,27 @@ export class HomePage {
         this.arrivalAddress = '222 W Merchandise Mart Plaza';
         this.departureAddress = '2025 Maple Ave';
         this.readyTime = 20;
+        this.alarmId = Date.now();
+      }
+
+      if (this.purpose == 'Edit') {
+        this.arrivalAddress = params.get('destination');
+        this.departureAddress = params.get('departureAddress');
+        this.readyTime = params.get('readyTime');
+        this.arrivalTime = params.get('arrivalTime');
+        this.arrivalTimeString = new Date(this.arrivalTime.getTime() - this.arrivalTime.getTimezoneOffset() * 60000).toISOString();
       }
     });
   }
 
   SetAlarm(time: Date) {
     this.localNotifications.schedule({
-      id: 0,
+      id: this.alarmId,
       text: 'Time to wake up',
       at: time,
       sound: null
     });
-
     this.alarmTime = time;
-    console.log("Alarm set at ", time.toString());
   }
 
   CalculateRoute() {
@@ -70,9 +84,14 @@ export class HomePage {
     }, (response, status) => {
       if (status === 'OK') {
         this.tripDuration = response.routes[0].legs[0].duration.value * 1000;
-        console.log('trip duration: ', this.tripDuration);
         this.departureTime = new Date(this.arrivalTime.getTime() - this.tripDuration - this.readyTime * 60000);
         this.departureTime.setSeconds(0);
+
+        // alarm pushed up by 24 hours if calculated departure time already happened
+        if (this.departureTime < new Date()) {
+          this.departureTime = new Date(this.departureTime.getTime() + 24 * 60 * 60 * 1000);
+          this.arrivalTime = new Date(this.arrivalTime.getTime() + 24 * 60 * 60 * 1000);
+        }
 
         this.SetAlarm(this.departureTime);
         this.DismissModal(true);
@@ -85,12 +104,13 @@ export class HomePage {
   DismissModal(passData: boolean) {
     if (passData) {
       let data = {
-        alarmId: 0,
+        alarmId: this.alarmId,
         alarmTime: this.alarmTime,
         departureTime: this.departureTime,
         arrivalTime: this.arrivalTime,
         tripDuration: this.tripDuration,
         destination: this.arrivalAddress,
+        departureAddress: this.departureAddress,
         readyTime: this.readyTime
       }
       this.viewController.dismiss(data);

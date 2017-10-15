@@ -34,22 +34,23 @@ export class AlarmDisplayPage {
     this.alarms = new Array();
   }
 
-  // ionViewDidLoad() {
-  //   console.log('ionViewDidLoad AlarmDisplayPage');
-  // }
-
   PresentAddAlarmModal() {
-    let modal = this.modalController.create(HomePage);
+    let modal = this.modalController.create(HomePage, {
+      purpose: 'Add'
+    });
 
     modal.onDidDismiss(data => {
       if (data != null) {
-      	let alarm = new AlarmCardComponent();
-      	alarm.departureTime = data.departureTime;
-      	alarm.arrivalTime = data.arrivalTime;
+        let alarm = new AlarmCardComponent(this.modalController);
+        alarm.alarmId = data.alarmId;
+        alarm.departureTime = data.departureTime;
+        alarm.arrivalTime = data.arrivalTime;
         alarm.destination = data.destination;
+        alarm.readyTime = data.readyTime;
         alarm.tripDurationString = this.DurationToString(data.tripDuration)
         alarm.readyTimeString = this.DurationToString(data.readyTime * 60000);
         alarm.alarmTime = data.alarmTime;
+        alarm.departureAddress = data.departureAddress;
         this.alarms.push(alarm);
       }
     });
@@ -58,9 +59,7 @@ export class AlarmDisplayPage {
 
   DurationToString(time: number) {
     var result = '';
-    console.log(time);
     time = Math.floor(time / 60000);
-    console.log(time);
     if (time < 60) {
       result = time.toString() + " minutes";
     } else {
