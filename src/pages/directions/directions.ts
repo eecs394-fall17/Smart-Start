@@ -25,8 +25,8 @@ export class DirectionsPage {
     map: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.origin= this.navParams.get('origin');
-  	this.destination = this.navParams.get('destination');
+    this.origin= this.navParams.get('tripOrigin');
+  	this.destination = this.navParams.get('tripDestination');
   }
 
   ionViewDidLoad() {
@@ -58,11 +58,9 @@ export class DirectionsPage {
         directionsDisplay.setPanel(this.directionsPanel.nativeElement);
 
         directionsService.route({
-            // origin: this.origin,
-            // destination: this.destination,
-            origin: 'Northwestern University',
-            destination: 'Merchandise Mart',
-            travelMode: google.maps.TravelMode['DRIVING']
+            origin: this.origin,
+            destination: this.destination,
+            travelMode: google.maps.TravelMode['TRANSIT']
         }, (res, status) => {
 
             if(status == google.maps.DirectionsStatus.OK){

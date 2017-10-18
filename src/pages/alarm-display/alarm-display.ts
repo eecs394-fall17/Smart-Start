@@ -41,7 +41,7 @@ export class AlarmDisplayPage {
 
     modal.onDidDismiss(data => {
       if (data != null) {
-        let alarm = new AlarmCardComponent(this.modalController);
+        let alarm = new AlarmCardComponent(this.modalController, this.navCtrl, this.navParams);
         alarm.alarmId = data.alarmId;
         alarm.departureTime = data.departureTime;
         alarm.arrivalTime = data.arrivalTime;
