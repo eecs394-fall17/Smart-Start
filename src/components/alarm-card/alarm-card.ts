@@ -1,7 +1,9 @@
 import { Component, Input, Output } from '@angular/core';
 import { HomePage } from '../../pages/home/home';
 import { AlarmDisplayPage } from '../../pages/alarm-display/alarm-display';
-import { ModalController } from 'ionic-angular';
+import { ModalController, IonicPage, NavController, NavParams  } from 'ionic-angular';
+import { DirectionsPage } from '../../pages/directions/directions';
+
 
 /**
  * Generated class for the AlarmCardComponent component.
@@ -29,17 +31,19 @@ export class AlarmCardComponent {
 
   alarmExpand: boolean;
 
-  toggleAlarm = function() {
+  ToggleAlarm = function() {
     this.alarmExpand = !this.alarmExpand;
     console.log(this.alarmExpand);
   };
 
-  isAlarmExpanded = function() {
+  IsAlarmExpanded = function() {
     return this.alarmExpand;
   };
 
   constructor(
-    public modalController: ModalController
+    public modalController: ModalController,
+    public navCtrl: NavController,
+    public navParams: NavParams,
   ) {
     this.alarmExpand = false;
   }
@@ -77,6 +81,13 @@ export class AlarmCardComponent {
       result = (Math.floor(time / 60)).toString() + " hours and " + (time % 60).toString() + " minutes";
     }
     return result
+  }
+
+  GoToAlarmDirections(){
+    this.navCtrl.push(DirectionsPage, {
+    tripOrigin: this.departureAddress,
+    tripDestination: this.destination
+});
   }
 
 }
