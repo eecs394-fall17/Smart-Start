@@ -45,7 +45,6 @@ export class AlarmCardComponent {
   }
 
   PresentEditAlarmModal() {
-    console.log(this.departureAddress, this.readyTime);
     let modal = this.modalController.create(HomePage, {
       purpose: 'Edit',
       arrivalTime: this.arrivalTime,
