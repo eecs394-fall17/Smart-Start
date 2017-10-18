@@ -30,6 +30,11 @@ export class HomePage {
   alarmTime: Date;
   alarmId: number;
 
+  //autocomplete
+  acOrigins: any;
+  acDestinations: any;
+  acService: any;
+
   constructor(
     public viewController: ViewController,
     public platform: Platform,
@@ -60,6 +65,10 @@ export class HomePage {
         this.arrivalTime = params.get('arrivalTime');
         this.arrivalTimeString = new Date(this.arrivalTime.getTime() - this.arrivalTime.getTimezoneOffset() * 60000).toISOString();
       }
+
+      this.acService = new google.maps.places.AutocompleteService();
+      this.acOrigins = [];
+      this.acDestinations = [];
     });
   }
 
@@ -122,6 +131,62 @@ export class HomePage {
   arrivalTimeChange() {
     this.arrivalTime = new Date(new Date(this.arrivalTimeString).getTime() + new Date().getTimezoneOffset() * 60000);
     this.arrivalTime.setSeconds(0);
+  }
+
+  updateOrigin() {
+    console.log("on change")
+    if (this.departureAddress == '') {
+      this.acOrigins = [];
+      return;
+    }
+    let self = this;
+    let config = {
+      types: ['geocode'], // other types available in the API: 'establishment', 'regions', and 'cities'
+      input: this.departureAddress,
+      componentRestrictions: { country: 'US' }
+    }
+    this.acService.getPlacePredictions(config, function(predictions, status) {
+      console.log('prediction status: ', status);
+      if (predictions == null || (predictions.length == 1 && predictions[0].description == self.departureAddress)) return;
+
+      self.acOrigins = [];
+      predictions.forEach(function(prediction) {
+        self.acOrigins.push(prediction);
+      });
+      console.log(self.acOrigins);
+    });
+  }
+
+  selectOrigin(item) {
+    this.departureAddress = item.description;
+    this.acOrigins = [];
+  }
+
+  updateDestination() {
+    if (this.arrivalAddress == '') {
+      this.acDestinations = [];
+      return;
+    }
+    let self = this;
+    let config = {
+      types: ['geocode'], // other types available in the API: 'establishment', 'regions', and 'cities'
+      input: this.arrivalAddress,
+      componentRestrictions: { country: 'US' }
+    }
+    this.acService.getPlacePredictions(config, function(predictions, status) {
+      console.log('prediction status: ', status);
+      if (predictions == null || (predictions.length == 1 && predictions[0].description == self.arrivalAddress)) return;
+
+      self.acDestinations = [];
+      predictions.forEach(function(prediction) {
+        self.acDestinations.push(prediction);
+      });
+    });
+  }
+
+  selectDestination(item) {
+    this.arrivalAddress = item.description;
+    this.acDestinations = [];
   }
 
 }

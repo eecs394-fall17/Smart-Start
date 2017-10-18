@@ -17,12 +17,22 @@
     <div>
       <ion-item>
         <ion-label color="primary" floating>Origin</ion-label>
-        <ion-input [(ngModel)]="departureAddress"></ion-input>
+        <ion-input [(ngModel)]="departureAddress" (ionChange)="updateOrigin()"></ion-input>
       </ion-item>
+      <ion-list *ngIf="acOrigins.length > 0">
+        <ion-item *ngFor="let item of acOrigins" (click)="selectOrigin(item)">
+          {{ item.description }}
+        </ion-item>
+      </ion-list>
       <ion-item>
         <ion-label color="primary" floating>Destination</ion-label>
-        <ion-input [(ngModel)]="arrivalAddress"></ion-input>
+        <ion-input [(ngModel)]="arrivalAddress" (ionChange)="updateDestination()"></ion-input>
       </ion-item>
+      <ion-list *ngIf="acDestinations.length > 0">
+        <ion-item *ngFor="let item of acDestinations" (click)="selectDestination(item)">
+          {{ item.description }}
+        </ion-item>
+      </ion-list>
       <ion-item>
         <ion-label color="primary" floating>Get Ready Time (minutes)</ion-label>
         <ion-input type="number" [(ngModel)]="readyTime" required></ion-input>
