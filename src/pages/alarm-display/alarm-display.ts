@@ -50,10 +50,13 @@ export class AlarmDisplayPage {
         alarm.tripDurationString = this.DurationToString(data.tripDuration)
         alarm.readyTimeString = this.DurationToString(data.readyTime * 60000);
         alarm.alarmTime = data.alarmTime;
+        alarm.alarmsArray = this.alarms;
+        alarm.arraySize = this.arraySize;
         this.alarms.push(alarm);
       }
     });
     modal.present()
+    console.log(this.alarms);
   }
 
   DurationToString(time: number) {
@@ -67,6 +70,10 @@ export class AlarmDisplayPage {
       result = (Math.floor(time / 60)).toString() + " hours and " + (time % 60).toString() + " minutes";
     }
     return result
+  }
+
+  arraySize(){
+    return this.alarms.length;
   }
 
 }

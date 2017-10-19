@@ -18,6 +18,8 @@ export class AlarmCardComponent {
   @Input('destination') destination: string;
   @Input('tripDurationString') tripDurationString: string;
   @Input('readyTimeString') readyTimeString: string;
+  @Input('alarmsArray') alarmsArray: Array<Object>;
+  @Input('arraySize') arraySize: number;
 
   alarmExpand: boolean;
 
@@ -30,6 +32,20 @@ export class AlarmCardComponent {
     return this.alarmExpand;
   };
 
+  removeAlarm(alarm){
+    console.log(alarm);
+    console.log(this.alarmsArray);
+    // for(var i = 0; i < this.alarmsArray.length; i++) {
+    //
+    //   if(this.alarmsArray[i] == alarm){
+    //     this.alarmsArray.splice(i, 1);
+    //   }
+    //
+    // }
+
+  }
+
+
   constructor() {
   	this.alarmExpand = false;
   	// this.departureTime = departureTime;
@@ -37,6 +53,7 @@ export class AlarmCardComponent {
   	// this.destination = destination;
   	// this.tripDurationString = tripDurationString;
   	// this.readyTimeString = readyTimeString;
+    this.alarmsArray = this.alarmsArray;
   }
 
 }

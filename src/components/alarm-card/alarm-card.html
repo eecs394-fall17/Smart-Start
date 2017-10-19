@@ -1,6 +1,6 @@
 <!-- Generated template for the AlarmCardComponent component -->
 <ion-card (click)="toggleAlarm()"
-			[ngClass]="{active: isAlarmExpanded()}">
+			[ngClass]="{active: isAlarmExpanded()}" #alarm>
 
 		<ion-item>
 	        <ion-label color="primary"><ion-icon name="ios-clock"></ion-icon> Alarm Time</ion-label>
@@ -29,7 +29,7 @@
 	      </ion-item>
 				<ion-item>
 					<button ion-button color="primary" (click)="share(item)">Edit</button>
-					<button ion-button color="danger" (click)="share(item)">Delete</button>
+					<button ion-button color="danger" (click)="removeAlarm(alarm)"><ion-icon name="trash"></ion-icon>Delete</button>
 				</ion-item>
 	  </div>
 </ion-card>
