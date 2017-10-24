@@ -35,6 +35,11 @@ export class AlarmDisplayPage {
   }
 
   PresentAddAlarmModal() {
+    console.log(this.alarms);
+    if (this.alarms.length > 0) {
+      console.log(this.alarms[0].display);
+    }
+
     let modal = this.modalController.create(HomePage, {
       purpose: 'Add'
     });
@@ -51,6 +56,7 @@ export class AlarmDisplayPage {
         alarm.readyTimeString = this.DurationToString(data.readyTime * 60000);
         alarm.alarmTime = data.alarmTime;
         alarm.departureAddress = data.departureAddress;
+        alarm.display = true;
         this.alarms.push(alarm);
       }
     });
@@ -66,6 +72,15 @@ export class AlarmDisplayPage {
       result = (Math.floor(time / 60)).toString() + " hours and " + (time % 60).toString() + " minutes";
     }
     return result
+  }
+
+  RemoveAlarm(alarmId) {
+    for (var i = 0; i < this.alarms.length; i++) {
+      if (this.alarms[i].alarmId == alarmId) {
+        this.alarms.splice(i, 1);
+        break;
+      }
+    }
   }
 
 }

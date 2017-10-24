@@ -25,10 +25,10 @@
 	        <ion-label color="primary" stacked>Destination</ion-label>
 	        <ion-label><ion-icon name="ios-home"></ion-icon> {{destination}}</ion-label>
 	      </ion-item>
-				<ion-item>
+				<div class="buttons">
+					<button ion-button color="balanced" (click)="GoToAlarmDirections()">View Directions</button>
 					<button ion-button color="primary" (click)="PresentEditAlarmModal()">Edit</button>
-					<button ion-button color="danger" (click)="kill()">Delete</button>
-          <button ion-button color="balanced" (click)="GoToAlarmDirections()">View Directions</button>
-				</ion-item>
+					<button ion-button color="danger" (click)="RemoveAlarm()">Delete</button>
+				</div>
 	  </div>
 </ion-card>

@@ -12,7 +12,8 @@
 
 <ion-content padding>
   <ion-list *ngFor="let alarm of alarms">
-    <alarm-card [departureTime]=alarm.departureTime
+    <alarm-card (displayChange)="RemoveAlarm(alarm.alarmId)"
+                [departureTime]=alarm.departureTime
     						[arrivalTime]=alarm.arrivalTime
     						[destination]=alarm.destination
 								[tripDurationString]=alarm.tripDurationString
@@ -20,7 +21,8 @@
 								[alarmTime]=alarm.alarmTime
                 [alarmId]=alarm.alarmId
                 [departureAddress]=alarm.departureAddress
-                [readyTime]=alarm.readyTime></alarm-card>
+                [readyTime]=alarm.readyTime
+                [display]=alarm.display></alarm-card>
   </ion-list>
   <ion-item *ngIf="alarms.length == 0">
     <ion-label>No Alarms</ion-label>

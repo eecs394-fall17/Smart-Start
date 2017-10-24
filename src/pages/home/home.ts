@@ -93,16 +93,20 @@ export class HomePage {
     }, (response, status) => {
       if (status === 'OK') {
         this.tripDuration = response.routes[0].legs[0].duration.value * 1000;
-        this.departureTime = new Date(this.arrivalTime.getTime() - this.tripDuration - this.readyTime * 60000);
+        this.departureTime = new Date(this.arrivalTime.getTime() - this.tripDuration);
         this.departureTime.setSeconds(0);
 
-        // alarm pushed up by 24 hours if calculated departure time already happened
-        if (this.departureTime < new Date()) {
+        this.alarmTime = new Date(this.departureTime.getTime() - this.readyTime * 60000);
+        this.alarmTime.setSeconds(0);
+
+        // alarm pushed up by 24 hours if calculated alarm time already happened
+        if (this.alarmTime < new Date()) {
+          this.alarmTime = new Date(this.alarmTime.getTime() + 24 * 60 * 60 * 1000);
           this.departureTime = new Date(this.departureTime.getTime() + 24 * 60 * 60 * 1000);
           this.arrivalTime = new Date(this.arrivalTime.getTime() + 24 * 60 * 60 * 1000);
         }
 
-        this.SetAlarm(this.departureTime);
+        this.SetAlarm(this.alarmTime);
         this.DismissModal(true);
       } else {
         window.alert('Directions request failed due to ' + status);

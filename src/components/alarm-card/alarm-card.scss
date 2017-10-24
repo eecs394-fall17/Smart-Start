@@ -8,3 +8,10 @@ alarm-card.hidden {
   padding-bottom: 0;
   transition: 0.09s all linear;
 }
+
+.buttons {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 5px 0;
+}

@@ -1,7 +1,7 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { HomePage } from '../../pages/home/home';
 import { AlarmDisplayPage } from '../../pages/alarm-display/alarm-display';
-import { ModalController, IonicPage, NavController, NavParams  } from 'ionic-angular';
+import { ModalController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DirectionsPage } from '../../pages/directions/directions';
 
 
@@ -28,12 +28,15 @@ export class AlarmCardComponent {
   @Input('alarmId') alarmId: number;
   @Input('readyTime') readyTime: number;
   @Input('departureAddress') departureAddress: string;
+  @Input('display') display: boolean;
+
+  @Output() displayChange : EventEmitter<any> = new EventEmitter<any>();
 
   alarmExpand: boolean;
 
   ToggleAlarm = function() {
     this.alarmExpand = !this.alarmExpand;
-    console.log(this.alarmExpand);
+    console.log('expand: ' + this.alarmExpand);
   };
 
   IsAlarmExpanded = function() {
@@ -72,6 +75,12 @@ export class AlarmCardComponent {
     modal.present()
   }
 
+  RemoveAlarm() {
+    // emit false to remove alarm
+    console.log("try emit remove alarm");
+    this.displayChange.emit(false);
+  }
+
   DurationToString(time: number) {
     var result = '';
     time = Math.floor(time / 60000);
@@ -83,11 +92,11 @@ export class AlarmCardComponent {
     return result
   }
 
-  GoToAlarmDirections(){
+  GoToAlarmDirections() {
     this.navCtrl.push(DirectionsPage, {
-    tripOrigin: this.departureAddress,
-    tripDestination: this.destination
-});
+      tripOrigin: this.departureAddress,
+      tripDestination: this.destination
+    });
   }
 
 }
