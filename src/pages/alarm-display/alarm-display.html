@@ -11,6 +11,12 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-item *ngIf="alarms.length == 0">
+    <ion-label>No Alarms</ion-label>
+  </ion-item>
+  <ion-item *ngIf="alarms.length != 0">
+    <ion-label>Your Alarms</ion-label>
+  </ion-item>
   <ion-list *ngFor="let alarm of alarms">
     <alarm-card (displayChange)="RemoveAlarm(alarm.alarmId)"
                 [departureTime]=alarm.departureTime
@@ -24,9 +30,6 @@
                 [readyTime]=alarm.readyTime
                 [display]=alarm.display></alarm-card>
   </ion-list>
-  <ion-item *ngIf="alarms.length == 0">
-    <ion-label>No Alarms</ion-label>
-  </ion-item>
 
   <ion-fab bottom center>
     <button ion-fab (click)="PresentAddAlarmModal()">

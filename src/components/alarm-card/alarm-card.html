@@ -1,8 +1,8 @@
 <!-- Generated template for the AlarmCardComponent component -->
 <ion-card>
 		<ion-item (click)="ToggleAlarm()">
-	        <ion-label color="primary"><ion-icon name="ios-clock"></ion-icon> Alarm Time</ion-label>
-	        <ion-label>{{alarmTime | date:'shortTime'}}</ion-label>
+	        <ion-label class="mini-dest" color="primary"><ion-icon name="ios-clock"></ion-icon> {{destination}}</ion-label>
+	        <ion-label class="alarm-time">{{alarmTime | date:'shortTime'}}</ion-label>
 	      </ion-item>
 		<div class="alarm-details" *ngIf="IsAlarmExpanded()">
 		<ion-item>
