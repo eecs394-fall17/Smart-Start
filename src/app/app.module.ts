@@ -27,7 +27,10 @@ import { Media } from '@ionic-native/media';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {
+        scrollAssist: false,
+        autoFocusAssist: false
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

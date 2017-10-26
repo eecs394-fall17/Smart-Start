@@ -19,7 +19,7 @@
         <ion-label color="primary" floating>Origin</ion-label>
         <ion-input [(ngModel)]="departureAddress" (ionChange)="updateOrigin()"></ion-input>
       </ion-item>
-      <ion-list *ngIf="acOrigins.length > 0">
+      <ion-list *ngIf="acOrigins.length > 0" style="position: absolute; z-index: 1000">
         <ion-item *ngFor="let item of acOrigins" (click)="selectOrigin(item)">
           {{ item.description }}
         </ion-item>
@@ -28,7 +28,7 @@
         <ion-label color="primary" floating>Destination</ion-label>
         <ion-input [(ngModel)]="arrivalAddress" (ionChange)="updateDestination()"></ion-input>
       </ion-item>
-      <ion-list *ngIf="acDestinations.length > 0">
+      <ion-list *ngIf="acDestinations.length > 0" style="position: absolute; z-index: 1000">
         <ion-item *ngFor="let item of acDestinations" (click)="selectDestination(item)">
           {{ item.description }}
         </ion-item>
